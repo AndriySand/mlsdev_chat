@@ -3,4 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery except: [:new, :edit, :create, :update]
   skip_before_filter :verify_authenticity_token
+
+  def render_json_error(description, status)
+    render json: { errors: description }, status: status
+  end
+
 end
