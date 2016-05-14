@@ -15,6 +15,11 @@ class ChatsController < ApplicationController
   def show
   end
 
+  def index
+    @chats = Chat.includes(:participants)
+    render_json_error('There are no chats', :ok) unless @chats.any?
+  end
+
   private
 
     def chat_params
