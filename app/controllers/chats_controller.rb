@@ -20,6 +20,15 @@ class ChatsController < ApplicationController
     render_json_error('There are no chats', :ok) unless @chats.any?
   end
 
+  def update
+    @chat.find_and_add_participants(params[:user_ids], current_user)
+    if @chat.update(chat_params)
+      render action: 'show', status: :ok
+    else
+      render_json_error(@chat.errors.messages, :unprocessable_entity)
+    end
+  end
+
   private
 
     def chat_params
