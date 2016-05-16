@@ -16,7 +16,7 @@ class ChatsController < ApplicationController
   end
 
   def index
-    @chats = Chat.includes(:participants)
+    @chats = Chat.includes(:participants).select{|chat| chat.authorized_user?(current_user)}
     render_json_error('There are no chats', :ok) unless @chats.any?
   end
 
