@@ -12,4 +12,8 @@ class Chat < ActiveRecord::Base
     participants.map(&:id)
   end
 
+  def authorized_user?(user)
+    participants.include?(user)
+  end
+
 end
