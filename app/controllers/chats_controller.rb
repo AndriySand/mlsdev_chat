@@ -21,6 +21,8 @@ class ChatsController < ApplicationController
   end
 
   def update
+    render_json_error('You are not authorized', :forbidden) and
+      return unless @chat.authorized_user?(current_user)
     @chat.find_and_add_participants(params[:user_ids], current_user)
     if @chat.update(chat_params)
       render action: 'show', status: :ok
