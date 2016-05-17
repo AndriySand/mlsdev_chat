@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     delete '/sessions' => 'sessions#destroy'
   end
 
-  resources :chats
+  resources :chats do
+    resource :messages
+  end
+
+  resources :messages, only: :index
 
 end
