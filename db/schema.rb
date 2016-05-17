@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20160511134640) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "author_id"
+    t.integer  "chat_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  null: false
     t.string   "encrypted_password",     null: false
