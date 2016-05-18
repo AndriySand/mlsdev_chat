@@ -7,7 +7,7 @@ class SessionsController < Devise::SessionsController
     render_json_error('Invalid name', :unauthorized) and return if user.nil?
     if user.valid_password?(params[:user][:password])
       sign_in('user', user)
-      render json: { user: {id: user.id, name: user.name} }, status: :created
+      render json: { user: {id: user.id, name: user.name, messages_count: user.messages.count} }, status: :created
     else
       render_json_error('Invalid password', :unauthorized)
     end
