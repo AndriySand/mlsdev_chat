@@ -5,5 +5,6 @@ class User < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   has_and_belongs_to_many :chats
   has_many :messages, foreign_key: 'author_id'
+  has_many :readings
 
 end
