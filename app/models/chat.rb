@@ -17,4 +17,18 @@ class Chat < ActiveRecord::Base
     participants.include?(user)
   end
 
+  def count_unread_messages(user)
+    (messages.map(&:id) - user.readings.map(&:message_id)).count
+  end
+
+  def read_messages(user)
+    messages.each do |message|
+      begin
+        user.readings.create(message_id: message.id)
+      rescue ActiveRecord::RecordNotUnique
+        next
+      end
+    end
+  end
+
 end
