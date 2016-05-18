@@ -13,11 +13,16 @@ class ChatsController < ApplicationController
   end
 
   def show
+    if @chat.authorized_user?(current_user)
+      @chat.read_messages(current_user)
+    else
+      render_json_error('You are not authorized', :forbidden)
+    end
   end
 
   def index
     @chats = Chat.includes(:participants).select{|chat| chat.authorized_user?(current_user)}
-    render_json_error('There are no chats', :ok) unless @chats.any?
+    render_json_error('There are no chats', :not_found) unless @chats.any?
   end
 
   def update
