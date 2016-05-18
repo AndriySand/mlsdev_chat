@@ -3,7 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
   def create_user
     build_resource(user_params)
     if resource.save
-      render json: { user: {id: resource.id, name: resource.name, email: resource.email} }, status: :created
+      user_attr = {id: resource.id, name: resource.name, email: resource.email}
+      render json: { user: user_attr.merge({messages_count: resource.messages.count}) }, status: :created
     else
       render_json_error(resource.errors.messages, :unprocessable_entity)
     end
