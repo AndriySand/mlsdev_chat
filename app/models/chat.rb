@@ -31,4 +31,11 @@ class Chat < ActiveRecord::Base
     end
   end
 
+  def show_unread_messages(user)
+    messages.select do |message|
+      reading = Reading.where("user_id = #{user.id} and message_id = #{message.id}").take
+      message unless reading
+    end
+  end
+
 end
