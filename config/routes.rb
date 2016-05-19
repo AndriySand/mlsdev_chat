@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   end
 
   get 'users/:id' => 'users#show'
+  get 'users' => 'users#index'
 
 end
