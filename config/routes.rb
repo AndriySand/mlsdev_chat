@@ -11,4 +11,6 @@ Rails.application.routes.draw do
     resources :messages
   end
 
+  get 'users/:id' => 'users#show'
+
 end
