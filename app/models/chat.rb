@@ -21,7 +21,7 @@ class Chat < ActiveRecord::Base
     (messages.map(&:id) - user.readings.map(&:message_id)).count
   end
 
-  def read_messages(user)
+  def make_readings(user)
     messages.each do |message|
       begin
         user.readings.create(message_id: message.id)
