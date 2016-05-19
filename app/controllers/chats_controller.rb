@@ -14,7 +14,7 @@ class ChatsController < ApplicationController
 
   def show
     if @chat.authorized_user?(current_user)
-      @chat.read_messages(current_user)
+      @chat.make_readings(current_user)
     else
       render_json_error('You are not authorized', :forbidden)
     end
